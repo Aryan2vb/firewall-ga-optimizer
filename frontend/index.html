@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Firewall GA Optimizer Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header>
+    <h1>Firewall Rule Optimization Dashboard</h1>
+    <button id="refresh-btn">Run Simulation &amp; GA</button>
+  </header>
+
+  <main>
+    <section id="summary">
+      <h2>Summary Metrics</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>Avg Checks (Baseline)</h3>
+          <p id="baseline-avg-checks">-</p>
+        </div>
+        <div class="card">
+          <h3>Avg Checks (GA)</h3>
+          <p id="ga-avg-checks">-</p>
+        </div>
+        <div class="card">
+          <h3>Avg Time (Baseline)</h3>
+          <p id="baseline-avg-time">-</p>
+        </div>
+        <div class="card">
+          <h3>Avg Time (GA)</h3>
+          <p id="ga-avg-time">-</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="rules-order">
+      <h2>Rule Order &amp; Hits</h2>
+      <div class="columns">
+        <div>
+          <h3>Baseline Order</h3>
+          <table id="baseline-table">
+            <thead>
+              <tr>
+                <th>Pos</th>
+                <th>Rule</th>
+                <th>Hits</th>
+                <th>Total Time</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div>
+          <h3>GA Optimized Order</h3>
+          <table id="ga-table">
+            <thead>
+              <tr>
+                <th>Pos</th>
+                <th>Rule</th>
+                <th>Hits</th>
+                <th>Total Time</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section id="charts">
+      <h2>Visualizations</h2>
+      <div class="columns">
+        <div>
+          <h3>Rule Hit Counts</h3>
+          <canvas id="ruleHitsChart"></canvas>
+        </div>
+        <div>
+          <h3>Pareto Front (Checks vs Time)</h3>
+          <canvas id="paretoChart"></canvas>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
