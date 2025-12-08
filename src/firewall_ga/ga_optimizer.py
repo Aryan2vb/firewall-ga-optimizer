@@ -33,8 +33,13 @@ def setup_toolbox(rule_ids, packets_df):
 
     def evaluate(individual):
         """Evaluation function that returns a tuple of fitness values."""
-        avg_checks, throughput = simulate_firewall(individual, packets_df)
+        metrics = simulate_firewall(individual, packets_df)
+
+        avg_checks = metrics["avg_checks"]
+        throughput = metrics["throughput"]
+
         return avg_checks, throughput
+
 
     # Register genetic operators
     toolbox.register("evaluate", evaluate)
