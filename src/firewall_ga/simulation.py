@@ -57,34 +57,3 @@ def simulate_firewall(rule_order: List[Any], packets_df: pd.DataFrame, return_ti
         result["packet_times"] = packet_times
 
     return result
-
-
-def run_baseline_and_ga():
-    # 1) run baseline rule order simulation
-    # 2) run GA + best individual
-    # 3) build and return metrics as dict
-    return {
-        "baseline": {
-            "avg_checks": 10.5,
-            "avg_time": 0.00042,
-            "throughput": 12000,
-            "per_rules": [
-                {"rule_id": "R1", "position": 1, "hit_count": 5000, "total_time": 0.2},
-                # ...
-            ]
-        },
-        "ga_best": {
-            "avg_checks": 6.1,
-            "avg_time": 0.00029,
-            "throughput": 17000,
-            "per_rules": [
-                {"rule_id": "R5", "position": 1, "hit_count": 8000, "total_time": 0.18},
-                # ...
-            ]
-        },
-        "pareto": [
-            {"avg_checks": 8.3, "avg_time": 0.00035, "is_baseline": True, "is_selected": False},
-            {"avg_checks": 6.1, "avg_time": 0.00029, "is_baseline": False, "is_selected": True},
-            # ...
-        ]
-    }
