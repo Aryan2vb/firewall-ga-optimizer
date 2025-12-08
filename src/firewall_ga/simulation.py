@@ -1,28 +1,59 @@
 import numpy as np
 import pandas as pd
+from typing import List, Dict, Any
 
-def simulate_firewall(rule_order, packets_df: pd.DataFrame):
+def simulate_firewall(rule_order: List[Any], packets_df: pd.DataFrame, return_times: bool = False) -> Dict[str, Any]:
     """
-    Simulate firewall operation with given rule order.
-    
+    Simulate firewall performance using reordered rules.
+
     Args:
-        rule_order: List of rule IDs in the order they should be checked
-        packets_df: DataFrame containing packet data with 'Rule ID', 'HitCount', and 'Elapsed Time (sec)' columns
-        
+        rule_order: List of rule IDs in new order
+        packets_df: DataFrame with columns ['Rule ID', 'HitCount', 'Elapsed Time (sec)']
+        return_times: If True, also return per-packet simulated times list
+
     Returns:
-        tuple: (average_checks, throughput) - Average number of rules checked per packet and packets per second
+        dict with:
+            - avg_checks: average (match_index * hitcount)
+            - throughput: packets per second
+            - packet_times: list of per-packet times (only if return_times=True)
     """
+
+    # Map rule → its position in reordered list
     rule_index_map = {rule_id: idx for idx, rule_id in enumerate(rule_order)}
 
     packets = packets_df.copy()
-    packets['Match Index'] = packets['Rule ID'].map(rule_index_map)
 
-    packets['HitCount'] = packets['HitCount'].fillna(1)
-    packets['Weighted Checks'] = packets['Match Index'] * packets['HitCount']
+    # Match Index = position of rule hit
+    packets["Match Index"] = packets["Rule ID"].map(rule_index_map)
 
-    avg_checks = packets['Weighted Checks'].mean()
+    # HitCount fallback
+    packets["HitCount"] = packets["HitCount"].fillna(1)
 
-    elapsed = packets['Elapsed Time (sec)'].replace(0, np.nan).dropna()
+    # Weighted checks (your original logic)
+    packets["Weighted Checks"] = packets["Match Index"] * packets["HitCount"]
+
+    # Average number of rule checks
+    avg_checks = packets["Weighted Checks"].mean()
+
+    # Throughput calculation from original CSV time
+    elapsed = packets["Elapsed Time (sec)"].replace(0, np.nan).dropna()
     throughput = len(packets) / elapsed.mean()
 
-    return avg_checks, throughput
+    # -----------------------------
+    # OPTIONAL: Per-packet times (for visualization)
+    # -----------------------------
+    packet_times = None
+    if return_times:
+        # Using Weighted Checks as simulated cost → more realistic than perf_counter
+        packet_times = packets["Weighted Checks"].tolist()
+
+    # Build output
+    result = {
+        "avg_checks": avg_checks,
+        "throughput": throughput,
+    }
+
+    if return_times:
+        result["packet_times"] = packet_times
+
+    return result
