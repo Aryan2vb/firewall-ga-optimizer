@@ -1,0 +1,45 @@
+2025-12-08 22:18:48,609 - __main__ - INFO - Starting Firewall Rule Optimization
+2025-12-08 22:18:48,609 - __main__ - INFO - Parameters: Population=50, Generations=30, Crossover Prob=0.7, Mutation Prob=0.3
+2025-12-08 22:18:48,609 - __main__ - INFO - Loading and preprocessing data...
+2025-12-08 22:18:48,826 - __main__ - INFO - Loaded 65,532 packet records
+2025-12-08 22:18:48,827 - __main__ - INFO - Extracted 39,599 unique rules
+2025-12-08 23:59:44,055 - __main__ - INFO - Starting Firewall Rule Optimization
+2025-12-08 23:59:44,056 - __main__ - INFO - Parameters: Population=50, Generations=30, Crossover Prob=0.7, Mutation Prob=0.3
+2025-12-08 23:59:44,056 - __main__ - INFO - Loading and preprocessing data...
+2025-12-08 23:59:44,281 - __main__ - INFO - Loaded 65,532 packet records
+2025-12-08 23:59:44,281 - __main__ - INFO - Extracted 39,599 unique rules
+2025-12-08 23:59:48,384 - __main__ - INFO - Setting up genetic algorithm...
+2025-12-08 23:59:48,409 - __main__ - INFO - Running genetic algorithm...
+2025-12-09 00:01:00,924 - __main__ - ERROR - An error occurred: Unknown format code 'f' for object of type 'str'
+Traceback (most recent call last):
+  File "/Users/soniyamalviya/Desktop/firewall-ga-optimizer/scripts/run_optimization.py", line 113, in main
+    print(f"Baseline - Avg Checks: {baseline_checks:.2f}, Throughput: {baseline_throughput:.2f} pkt/s")
+                                   ^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'str'
+2025-12-09 00:06:24,474 - __main__ - INFO - Starting Firewall Rule Optimization
+2025-12-09 00:06:24,474 - __main__ - INFO - Parameters: Population=50, Generations=30, Crossover Prob=0.7, Mutation Prob=0.3
+2025-12-09 00:06:24,474 - __main__ - INFO - Loading and preprocessing data...
+2025-12-09 00:06:24,688 - __main__ - INFO - Loaded 65,532 packet records
+2025-12-09 00:06:24,688 - __main__ - INFO - Extracted 39,599 unique rules
+2025-12-09 00:31:16,688 - __main__ - INFO - Starting Firewall Rule Optimization
+2025-12-09 00:31:16,688 - __main__ - INFO - Parameters: Population=50, Generations=30, Crossover Prob=0.7, Mutation Prob=0.3
+2025-12-09 00:31:16,688 - __main__ - INFO - Loading and preprocessing data...
+2025-12-09 00:31:16,898 - __main__ - INFO - Loaded 65,532 packet records
+2025-12-09 00:31:16,898 - __main__ - INFO - Extracted 39,599 unique rules
+2025-12-09 00:31:20,276 - __main__ - INFO - Setting up genetic algorithm...
+2025-12-09 00:31:20,282 - __main__ - INFO - Running genetic algorithm...
+2025-12-09 00:32:35,676 - __main__ - ERROR - An error occurred: Unknown format code 'f' for object of type 'str'
+Traceback (most recent call last):
+  File "/Users/soniyamalviya/Desktop/firewall-ga-optimizer/scripts/run_optimization.py", line 113, in main
+    print(f"Baseline - Avg Checks: {baseline_checks:.2f}, Throughput: {baseline_throughput:.2f} pkt/s")
+                                   ^^^^^^^^^^^^^^^^^^^^^
+ValueError: Unknown format code 'f' for object of type 'str'
+2025-12-09 15:24:13,292 - __main__ - INFO - Starting Firewall Rule Optimization
+2025-12-09 15:24:13,293 - __main__ - INFO - Parameters: Population=50, Generations=30, Crossover Prob=0.7, Mutation Prob=0.3
+2025-12-09 15:24:13,293 - __main__ - INFO - Loading and preprocessing data...
+2025-12-09 15:24:13,516 - __main__ - INFO - Loaded 65,532 packet records
+2025-12-09 15:24:13,516 - __main__ - INFO - Extracted 39,599 unique rules
+2025-12-09 15:24:17,489 - __main__ - INFO - Setting up genetic algorithm...
+2025-12-09 15:24:17,504 - __main__ - INFO - Running genetic algorithm...
+2025-12-09 15:25:28,592 - __main__ - INFO - Generating visualizations...
+2025-12-09 15:25:48,311 - __main__ - INFO - Optimization completed successfully!

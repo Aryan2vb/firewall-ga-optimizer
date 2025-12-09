@@ -102,11 +102,15 @@ def main():
         
         # Evaluate baseline (original) rule order
         baseline_order = rule_ids
-        baseline_checks, baseline_throughput = simulate_firewall(baseline_order, full_df)
+        baseline_result = simulate_firewall(baseline_order, full_df)
+        baseline_checks = baseline_result["avg_checks"]
+        baseline_throughput = baseline_result["throughput"]
         
         # Get best solution (prioritizing throughput)
         best_solution = max(pop, key=lambda ind: ind.fitness.values[1])
-        opt_checks, opt_throughput = simulate_firewall(best_solution, full_df)
+        opt_result = simulate_firewall(best_solution, full_df)
+        opt_checks = opt_result["avg_checks"]
+        opt_throughput = opt_result["throughput"]
         
         # Print results
         print("\n=== Optimization Results ===")

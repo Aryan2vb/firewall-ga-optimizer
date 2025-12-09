@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Firewall GA Dashboard</title>
+
+    <style>
+        body {
+            background: #0d1117;
+            color: #c9d1d9;
+            font-family: "Inter", Arial, sans-serif;
+            margin: 0;
+            padding: 20px 40px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #58a6ff;
+            font-size: 2.6rem;
+            font-weight: 700;
+        }
+
+        /* -------- GRID FOR THE 4 PLOTS -------- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 28px;
+            margin-top: 35px;
+        }
+
+        .card {
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0px 6px 18px rgba(0,0,0,0.45);
+        }
+
+        .card h2 {
+            text-align: center;
+            color: #58a6ff;
+            font-size: 1.35rem;
+            margin-bottom: 15px;
+        }
+
+        .card img {
+            width: 100%;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+            cursor: pointer;
+        }
+
+        /* -------- FULL-WIDTH RULE TABLE SECTION -------- */
+        .full-section {
+            margin-top: 50px;
+            background: #161b22;
+            padding: 28px;
+            border-radius: 14px;
+            border: 1px solid #30363d;
+        }
+
+        .full-section h2 {
+            text-align: center;
+            color: #58a6ff;
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+        }
+
+        /* Table styling */
+        .rule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 0.95rem;
+        }
+
+        .rule-table th {
+            background: #21262d;
+            color: #58a6ff;
+            padding: 12px;
+            border-bottom: 1px solid #30363d;
+            text-align: left;
+        }
+
+        .rule-table td {
+            padding: 12px;
+            border-bottom: 1px solid #30363d;
+        }
+
+        .rule-table tr:hover {
+            background: #1a1f25;
+        }
+
+        /* Scroll if many rules */
+        .table-container {
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.85);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 12px;
+        }
+    </style>
+
+    <script>
+        function showLightbox(src) {
+            let box = document.getElementById("lightbox");
+            let img = document.getElementById("lightbox-img");
+            img.src = src;
+            box.style.display = "flex";
+        }
+        function hideLightbox() {
+            document.getElementById("lightbox").style.display = "none";
+        }
+    </script>
+</head>
+
+<body>
+
+<h1>Firewall GA Optimization Dashboard</h1>
+
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox" onclick="hideLightbox()">
+    <img id="lightbox-img">
+</div>
+
+<!-- TOP 4 GRAPH CARDS -->
+<div class="grid">
+    {% for p in plots %}
+    <div class="card">
+        <h2>{{ p.replace('.png','').replace('_',' ').title() }}</h2>
+        <img src="/plots/{{ p }}" onclick="showLightbox('/plots/{{ p }}')">
+    </div>
+    {% endfor %}
+</div>
+
+<!-- FULL WIDTH RULE TABLE -->
+<div class="full-section">
+    <h2>Top 20 Rules (By Hit Count)</h2>
+
+    <div class="table-container">
+        <table class="rule-table">
+            <thead>
+                <tr>
+                    <th>Rule ID</th>
+                    <th>Source Port</th>
+                    <th>Destination Port</th>
+                    <th>Action</th>
+                    <th>Hits</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for r in top_rules %}
+                <tr>
+                    <td>{{ r["Rule ID"] }}</td>
+                    <td>{{ r["Source Port"] }}</td>
+                    <td>{{ r["Destination Port"] }}</td>
+                    <td>{{ r["Action"] }}</td>
+                    <td>{{ r["HitCount"] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
